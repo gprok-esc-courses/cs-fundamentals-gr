@@ -1,3 +1,11 @@
+# Display a tree of n asterisks
+# For example: 
+# if n is 5
+# display:
+#   *
+#  ***
+# *****
+#   #
 
 n = int(input("Give n: "))
 
