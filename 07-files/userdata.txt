@@ -1,0 +1,6 @@
+Hello
+World
+Python
+Files
+New data
+Hello Append
