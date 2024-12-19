@@ -25,6 +25,40 @@ def check_login(id, pin, accounts):
             return account 
     return None
 
+
+def atm_menu():
+    print("1. Balance")
+    print("2. Deposit")
+    print("3. Withdraw")
+    print("0. EXIT")
+    ch = int(input("Choose: "))
+    return ch 
+
+
+def deposit(account):
+    amount = float(input("Amount: "))
+    if amount > 0:
+        account['balance'] += amount
+    else:
+        print("Invalid amount")
+
+
+def withdraw(account):
+    amount = float(input("Amount: "))
+    if amount > 0 and amount <= account['balance']:
+        account['balance'] -= amount 
+    else:
+        print("Invalid amount")
+
+
+def save(accounts):
+    file = open('accounts.csv', 'w')
+    file.write('id,pin,name,balance\n')
+    for key in accounts:
+        a = accounts[key]
+        file.write(a['id'] + ',' + a['pin'] + ',' + a['name'] + ',' +
+                   str(a['balance']) + '\n')
+
 # Load accounts
 accounts = read_accounts()
 
@@ -40,9 +74,22 @@ while pin != '0000' and id != '0000':
     if account is not None:
         print("Welcome,", account['name'])
         # Loop until user selects 0 (EXIT)
-
+        choice = -1
+        while choice != 0:
             # Display ATM menu and get user's choice
-
+            choice = atm_menu()
             # Serve user's choice
-
-            # If user choice 0: Save account to file
+            match choice:
+                case 1:
+                    print("Balance", account['balance']) 
+                case 2:
+                    deposit(account)
+                case 3: 
+                    withdraw(account)  
+                case 0:
+                    # If user choice 0: Save account to file
+                    save(accounts)
+                    print("BYE ...")  
+                case _: 
+                    print("Wrong choice")
+            
